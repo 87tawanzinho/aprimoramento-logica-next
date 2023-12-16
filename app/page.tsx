@@ -35,7 +35,7 @@ Ao enviar, deve-se apresentar um alert javascript com sucesso, limpar todos os c
 do formulário e zerar a barra de progresso novamente.
 */
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { data, returnData } from "./types";
 
 export default function Home() {
@@ -66,6 +66,39 @@ export default function Home() {
 
     console.log(newData);
   };
+
+  const calculateProgress = () => {
+    let value = 0;
+    let amount = 25;
+
+    if (data.email) {
+      const pattern =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      if (pattern.test(data.email)) {
+        value += amount;
+      }
+    }
+
+    if (data.fullName) {
+      const explodedString = data.fullName.split(" ");
+      console.log(explodedString);
+
+      if (explodedString[1]) {
+        value += amount;
+      }
+    }
+
+    if (data.genre) {
+      value += amount;
+    }
+
+    if (data.maritalStatus) {
+      value += amount;
+    }
+    return value;
+  };
+
   return (
     <div className="App">
       <h3>desafio fernandev</h3>
@@ -75,7 +108,10 @@ export default function Home() {
         {/* crie a barra de progresso aqui */}
 
         <div className="bar-container">
-          <div className="bar"></div>
+          <div
+            className="bar"
+            style={{ width: `${calculateProgress()}%` }}
+          ></div>
         </div>
         <div className="form-group">
           <label htmlFor="">Nome Completo</label>
@@ -91,7 +127,11 @@ export default function Home() {
         </div>
         <div className="form-group">
           <label htmlFor="">Estado Civil</label>
-          <select name="maritalStatus" value={data.maritalStatus}>
+          <select
+            name="maritalStatus"
+            value={data.maritalStatus}
+            onChange={handleChange}
+          >
             <option value="">- selecione...</option>
             <option value="solteiro">Solteiro</option>
             <option value="casado">Casado</option>
