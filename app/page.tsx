@@ -96,7 +96,18 @@ export default function Home() {
     if (data.maritalStatus) {
       value += amount;
     }
+
     return value;
+  };
+
+  const sendForm = () => {
+    alert("enviado com sucesso");
+    setData({
+      fullName: "",
+      email: "",
+      maritalStatus: "",
+      genre: null,
+    });
   };
 
   return (
@@ -163,7 +174,9 @@ export default function Home() {
             </span>
           </div>
         </div>
-        <button>Enviar Formulário</button>
+        <button onClick={sendForm} disabled={calculateProgress() !== 100}>
+          Enviar Formulário
+        </button>
       </main>
     </div>
   );
