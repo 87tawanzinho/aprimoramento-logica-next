@@ -48,6 +48,7 @@ export default function Home() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
     setData((prev) => ({
       ...prev,
       [name]: value,
@@ -72,6 +73,10 @@ export default function Home() {
 
       <main>
         {/* crie a barra de progresso aqui */}
+
+        <div className="bar-container">
+          <div className="bar"></div>
+        </div>
         <div className="form-group">
           <label htmlFor="">Nome Completo</label>
           <input
